@@ -3,6 +3,7 @@ import pandas as pd
 from flask import Flask, request, render_template
 from sklearn import preprocessing
 import joblib
+from collections.abc import Mapping
 
 app = Flask(__name__)
 model = joblib.load(open('model.pkl', 'rb'))
