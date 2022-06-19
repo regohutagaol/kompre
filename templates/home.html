@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+    <meta charset="UTF-8">
+    <title>Rego Hutagaol 001486</title>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+	<style>
+		h1 {text-align: center;font-family: 'Montserrat';font-size: 24px;}
+		p {text-align: center; font-family: 'Montserrat'}
+		div {text-align: center; font-family: 'Montserrat'}
+		body {background-image: url('https://bankraya.co.id/img/logo.png');
+		background-repeat: no-repeat;
+  		background-attachment: fixed;
+  		background-size: 10% 10%;
+		background-position: bottom right}
+		body {
+        padding: 25px;
+        background-color: white;
+        color: black;
+        font-size: 21;
+      }
+      .dark-mode {
+        background-color: black;
+        color: white;
+      }
+      .light-mode {
+        background-color: white;
+        color: black;
+      }
+	  h3{position: absolute;
+		bottom: 0;
+		left: 0;}
+	</style>
+</head>
+
+<body>
+    <div class="prediction">
+        <br><br><br><br><br><br><br><br>
+		<h1><b>Prediksi Kelas Resiko Pelanggan Menggunakan XGBoost</b></h1>
+        <form action="{{ url_for('predict')}}"method="post">
+        <label for="NoA">Jumlah NoA </label>
+        <input type="text" id="NoA" name="NoA" required="required">
+        <br>
+		<br>		
+        <label for="Balance">Balance</label>
+		<input type="text" id="Balance" name="Balance" required="required">
+		<br>
+		<br>
+        <label for="Usia">Usia </label>
+        <input type="text" id="Usia" name="Usia" required="required">
+        <br>
+		<br>    		
+    	<label for="Uker">Unit Kerja</label>
+    		<select id="Uker" name="Uker" required="required">
+      			<option value="Uker_PEKANBARU">Pekanbaru</option>
+      			<option value="Uker_KANTOR PUSAT">Kantor Pusat</option>
+      			<option value="Uker_SURABAYA">Surabaya</option>
+      			<option value="Uker_KANTOR CABANG UTAMA">Kantor Cabang Utama</option>
+      			<option value="Uker_MAKASSAR">Makassar</option>
+      			<option value="Uker_RANTAU PRAPAT">Rantau Prapat</option>
+      			<option value="Uker_UJUNG BATU">Ujung Batu</option>
+      			<option value="Uker_CB MALANG">Malang</option>
+      			<option value="Uker_JAKARTA KUNINGAN">Jakarta Kuningan</option>
+      			<option value="Uker_CB BONDOWOSO">Bondowoso</option>
+      			<option value="Uker_LUBUK DALAM">Lubuk Dalam</option>
+      			<option value="Uker_MEDAN">Medan</option>
+      			<option value="Uker_KASIKAN - KK DALU DALU">Kasikan - KK Dalu dalu</option>
+      			<option value="Uker_JAKARTA JAMSOSTEK">Jakarta Jamsostek</option>
+      			<option value="Uker_MEDAN ABDUL RAHMAN HAKIM<">Medan Abdul Rahman Hakim</option>
+      			<option value="Uker_BANDUNG">Bandung</option>
+      			<option value="Uker_LAMPUNG">Lampung</option>
+      			<option value="Uker_AIR MOLEK">Air Molek</option>
+      			<option value="Uker_TEBING TINGGI">Tebing Tinggi</option>
+      			<option value="Uker_SEMARANG">Semarang</option>
+      			<option value="Uker_GRESIK">Gresik</option>
+      			<option value="Uker_SIDOARJO">Sidoarjo</option>
+      			<option value="Uker_CB TEMANGGUNG">Temanggung</option>
+      			<option value="Uker_TEBET">Tebet</option>
+      			<option value="Uker_SOLO">Solo</option>
+      			<option value="Uker_BANDAR JAYA">Bandar Jaya</option>
+      			<option value="Uker_JAMBI">Jambi</option>
+      			<option value="Uker_CB MAGELANG">Magelang</option>
+      			<option value="Uker_CB LAMONGAN">Lamongan</option>
+      			<option value="Uker_BEKASI">Bekasi</option>
+      			<option value="Uker_CB CIREBON">Cirebon</option>
+      			<option value="Uker_CB PURWOREJO">Purworejo</option>
+      			<option value="Uker_BANYUMANIK">Banyumanik</option>
+      			<option value="Uker_JAKARTA DEPTAN">Jakarta Deptan</option>
+      			<option value="Uker_KANTOR KAS TELUK SONO">Teluk Sono</option>                
+    		</select>
+    		<br>
+			<br>
+		<label for="pendidikan">Pendidikan Terakhir</label>
+    		<select id="pendidikan" name="pendidikan" required="required">
+				<option value="pendidikan_BT-Belum Tamat SD/Sederajat">Belum Tamat SD/Sederajat</option>
+				<option value="pendidikan_SD-SD">SD</option>
+				<option value="pendidikan_SM-SMP">SMP</option>
+				<option value="pendidikan_SU-SMA/SMK">SMA/SMK</option>
+				<option value="pendidikan_D1-Diploma 1">Diploma 1</option>
+				<option value="pendidikan_D2-Diploma 2">Diploma 2</option>
+				<option value="pendidikan_D3-Diploma 3">Diploma 3</option>
+				<option value="pendidikan_S1-Sarjana">Sarjana</option>
+      			<option value="pendidikan_S2-Master">Master</option>
+      			<option value="pendidikan_S3-Doktoral">Doktoral</option>
+				<option value="pendidikan_ZZ-Lainnya">Lainnya</option>
+      			<option value="pendidikan_TS-Tidak/Belum Sekolah">Tidak/Belum Sekolah</option>
+    		</select>
+    		<br>
+			<br>
+    		<label for="sumber penghasilan">Sumber Penghasilan</label>
+    		<select id="sumber penghasilan" name="sumber penghasilan" required="required">
+      			<option value="sumber penghasilan_00011-GAJI">Gaji</option>
+      			<option value="sumber penghasilan_00012-HASIL USAHA">Hasil Usaha</option>
+      			<option value="sumber penghasilan_00099-LAINNYA">Lainnya</option>
+    		</select>
+    		<br>
+			<br>
+		<label for="income">Pendapatan Tiap Bulan</label>
+    		<select id="income" name="income" required="required">
+      			<option value="income_G1-S.D. 5 JUTA">Rp. 0,00 sampai Rp. 5.000.000,00</option>
+      			<option value="income_G2-5 - 10 JUTA">Rp. 5.000.000,00 sampai Rp. 10.000.000,00</option>
+      			<option value="income_G3-10 - 50 JUTA">Rp. 10.000.000,00 sampai Rp. 50.000.000,00</option>
+      			<option value="income_G4-50 - 100 JUTA">Rp. 50.000.000,00 sampai Rp. 100.000.000,00</option>
+      			<option value="income_G5-DI ATAS 100 JUTA">di atas Rp. 100.000.000,00</option>
+    		</select>
+    		<br>
+			<br>
+    		<label for="Gender">Gender</label>
+    		<select id="Gender" name="Gender" required="required">
+      			<option value="Gender_Wanita">Wanita</option>
+      			<option value="Gender_Pria">Pria</option>
+    		</select>
+    		<br>
+			<br>
+        	<button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+        </form>
+
+       <br>
+	   <br>
+       <b>{{ prediction_text }}</b>
+    </div>
+    <script>
+      window.onload=function darkMode() {
+        var element = document.body;
+        var content = document.getElementById("DarkModetext");
+        element.className = "dark-mode";
+      }
+    </script>
+</body>
+</html>
