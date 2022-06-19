@@ -43,7 +43,7 @@ def predict():
         kelas="High Risk"
     else : kelas = "Very High Risk"
 
-    return render_template('home.html', prediction_text='Kemungkinan user untuk churn adalah {}% sehingga masuk dalam kategori {} '.format(round(pred*100), kelas))
+    return render_template('home.html', prediction_text='Kemungkinan user untuk churn adalah {}% sehingga masuk dalam kelas {} '.format(round(pred*100), kelas))
 
 
 if __name__ == "__main__":
